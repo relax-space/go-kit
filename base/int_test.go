@@ -1,8 +1,9 @@
 package base
 
 import (
-	"go-kit/test"
 	"testing"
+
+	"github.com/relax-space/go-kit/test"
 )
 
 func Test_ContainsInt(t *testing.T) {
