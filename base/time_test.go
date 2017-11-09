@@ -2,7 +2,7 @@ package base
 
 import (
 	"fmt"
-	"go-kit/test"
+	"github.com/relax-space/go-kitgo-kit/test"
 	"testing"
 	"time"
 )

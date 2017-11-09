@@ -1,7 +1,7 @@
 package base
 
 import (
-	"go-kit/test"
+	"github.com/relax-space/go-kit/test"
 	"testing"
 )
 

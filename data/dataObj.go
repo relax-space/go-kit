@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
-	"go-kit/base"
+	"github.com/relax-space/go-kit/base"
 )
 
 type Data struct {

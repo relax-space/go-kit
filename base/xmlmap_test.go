@@ -3,8 +3,9 @@ package base
 import (
 	"encoding/xml"
 	"fmt"
-	"go-kit/test"
 	"testing"
+
+	"github.com/relax-space/go-kit/test"
 )
 
 func Test_MarshalXML(t *testing.T) {
