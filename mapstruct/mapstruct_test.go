@@ -1,6 +1,7 @@
 package mapstruct
 
 import (
+	"fmt"
 	"kit/test"
 	"testing"
 )
@@ -18,6 +19,7 @@ func Test_Decode(t *testing.T) {
 	}
 
 	test.Ok(t, Decode(appleMap, &apple))
+	fmt.Printf("%+v", apple)
 
 	test.Equals(t, "red", apple.Color)
 
