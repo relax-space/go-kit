@@ -1,15 +1,18 @@
 package sign
 
 import (
+	"fmt"
 	"kit/test"
 	"testing"
 )
 
 func Test_GetMD5Hash(t *testing.T) {
-	_, err := GetMD5Hash("secret jwt")
+	s, err := GetMD5Hash("secret jwt")
+
 	test.Ok(t, err)
-	_, err = GetMD5Hash("secret jwt", true)
+	s1, err := GetMD5Hash("secret jwt", true)
 	test.Ok(t, err)
+	fmt.Println(s, s1)
 
 }
 

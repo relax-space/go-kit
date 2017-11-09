@@ -2,9 +2,10 @@ package base
 
 import (
 	"fmt"
-	"github.com/relax-space/go-kitgo-kit/test"
 	"testing"
 	"time"
+
+	"github.com/relax-space/go-kit/test"
 )
 
 func Test_GetChinaTime(t *testing.T) {
