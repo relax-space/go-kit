@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+
 	"github.com/relax-space/go-kit/base"
 )
 
@@ -11,7 +12,7 @@ type Data struct {
 	DataAttr map[string]interface{}
 }
 
-func NewDataObj() *Data {
+func New() *Data {
 	return &Data{
 		DataAttr: map[string]interface{}{},
 	}

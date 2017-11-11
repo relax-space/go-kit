@@ -11,7 +11,7 @@ func Test_FromXml(t *testing.T) {
 	<app_id>wx1111</app_id>
 	<name>apple</name>
 	</xml>`
-	atomData := NewDataObj()
+	atomData := New()
 	test.Ok(t, atomData.FromXml(xmlData))
 
 	test.Equals(t, atomData.DataAttr["app_id"], "wx1111")
@@ -23,7 +23,7 @@ func Test_ToXml_ToUrl_ToJson(t *testing.T) {
  <app_id>wx1111</app_id>
  <name>apple</name>
  </xml>`
-	atomData := NewDataObj()
+	atomData := New()
 	test.Ok(t, atomData.FromXml(xmlData))
 
 	test.Equals(t, `{"app_id":"wx1111","name":"apple"}`, atomData.ToJson())
