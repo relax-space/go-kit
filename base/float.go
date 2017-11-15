@@ -11,7 +11,7 @@ const (
 )
 
 var (
-	DefaultPriceSetting = &PriceSetting{
+	defaultPriceSetting = &PriceSetting{
 		RoundDigit:    DefaultRoundDigit,
 		RoundStrategy: DefaultRoundStrategy,
 		Currency:      DefaultCurrency,
@@ -24,7 +24,13 @@ type PriceSetting struct {
 	Currency      string `json:"currency"`
 }
 
-func ToFixed(num float64, priceSetting *PriceSetting) float64 {
+func ToFixed(num float64, priceSettings ...*PriceSetting) float64 {
+	var priceSetting *PriceSetting
+	if len(priceSettings) == 0 {
+		priceSetting = defaultPriceSetting
+	} else {
+		priceSetting = priceSettings[0]
+	}
 	switch priceSetting.RoundStrategy {
 	case "ceil", "Ceil":
 		output := math.Pow(10, float64(priceSetting.RoundDigit))
