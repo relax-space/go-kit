@@ -41,14 +41,14 @@ func MakeMd5PureSign(url, key string, isLowerCase ...bool) (sign string) {
 	return
 }
 
-func CheckSign(url, key, sign string, isLowerCase ...bool) (ok bool) {
+func CheckMd5Sign(url, key, sign string, isLowerCase ...bool) (ok bool) {
 	if MakeMd5Sign(url, key, isLowerCase...) == sign {
 		return true
 	}
 	return false
 }
 
-func GetSha1Hash(text string, priKey string) (string, error) {
+func MakeSha1Sign(text string, priKey string) (string, error) {
 
 	preKey := "-----BEGIN RSA PRIVATE KEY-----\n"
 	sufKey := "\n-----END RSA PRIVATE KEY-----"
@@ -60,7 +60,7 @@ func GetSha1Hash(text string, priKey string) (string, error) {
 	return Sign(signer, []byte(text))
 }
 
-func CheckPubKey(text string, signed string, pubKey string) bool {
+func CheckSha1Sign(text string, signed string, pubKey string) bool {
 	var err error
 	prePubKey := "-----BEGIN PUBLIC KEY-----\n"
 	sufPubKey := "\n-----END PUBLIC KEY-----"
