@@ -42,3 +42,13 @@ func Test_GetDateFormat(t *testing.T) {
 	test.Equals(t, len(d0), 19)
 
 }
+
+func TestNewDataFormat(t *testing.T) {
+	now := time.Now()
+	fmt.Println(NewDateFormat(now, "yyMMdd"))
+	fmt.Println(NewDateFormat(now, "yyyyMMdd"))
+	fmt.Println(NewDateFormat(now, "yyyy-MM-dd"))
+	fmt.Println(NewDateFormat(now, "yyyymmdd hh:mm:ss"))
+	fmt.Println(NewDateFormat(now, "yyyymmddhhmmss"))
+	fmt.Println(NewDateFormat(now, "hh:mm:ss"))
+}

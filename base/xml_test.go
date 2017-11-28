@@ -2,8 +2,9 @@ package base
 
 import (
 	"fmt"
-	"github.com/relax-space/go-kit/test"
 	"testing"
+
+	"github.com/relax-space/go-kit/test"
 )
 
 func Test_XmlToMap(t *testing.T) {
