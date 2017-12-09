@@ -139,12 +139,19 @@ func JoinMapObjectEncode(v map[string]interface{}) string {
 	return buf.String()
 }
 
-func ParseMapObjectEncode(param string) (result map[string]interface{}) {
+//sep:& or &amp;
+func ParseMapObjectEncode(param string, sep ...string) (result map[string]interface{}) {
+	var sepi string
+	if sep == nil || len(sep) == 0 {
+		sepi = "&"
+	} else {
+		sepi = sep[0]
+	}
 	result = make(map[string]interface{}, 0)
 	if len(param) == 0 {
 		return
 	}
-	vs := strings.Split(param, "&amp;")
+	vs := strings.Split(param, sepi)
 	for _, v := range vs {
 		if !strings.Contains(v, "=") {
 			return
