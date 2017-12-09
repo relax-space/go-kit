@@ -139,24 +139,18 @@ func JoinMapObjectEncode(v map[string]interface{}) string {
 	return buf.String()
 }
 
-//sep:& or &amp;
-func ParseMapObjectEncode(param string, sep ...string) (result map[string]interface{}) {
-	var sepi string
-	if sep == nil || len(sep) == 0 {
-		sepi = "&"
-	} else {
-		sepi = sep[0]
-	}
+//sep1: default value & ,sep2:default value =
+func ParseMapObjectEncode(param, sep1, sep2 string) (result map[string]interface{}) {
 	result = make(map[string]interface{}, 0)
 	if len(param) == 0 {
 		return
 	}
-	vs := strings.Split(param, sepi)
+	vs := strings.Split(param, sep1)
 	for _, v := range vs {
-		if !strings.Contains(v, "=") {
+		if !strings.Contains(v, sep2) {
 			return
 		}
-		vss := strings.Split(v, "=")
+		vss := strings.Split(v, sep2)
 		vsse, err := url.QueryUnescape(vss[1])
 		if err != nil {
 			return
@@ -166,17 +160,18 @@ func ParseMapObjectEncode(param string, sep ...string) (result map[string]interf
 	return
 }
 
-func ParseMapObject(param string) (result map[string]interface{}) {
+//sep1: default value & ,sep2:default value =
+func ParseMapObject(param, sep1, sep2 string) (result map[string]interface{}) {
 	result = make(map[string]interface{}, 0)
 	if len(param) == 0 {
 		return
 	}
-	vs := strings.Split(param, "&")
+	vs := strings.Split(param, sep1)
 	for _, v := range vs {
-		if !strings.Contains(v, "=") {
+		if !strings.Contains(v, sep2) {
 			return
 		}
-		vss := strings.Split(v, "=")
+		vss := strings.Split(v, sep2)
 		result[vss[0]] = vss[1]
 	}
 	return
