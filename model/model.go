@@ -22,7 +22,7 @@ type StatusMessage struct {
 }
 
 type ArrayResult struct {
-	TotalCount int         `json:"totalCount"`
+	TotalCount int64       `json:"totalCount"`
 	Items      interface{} `json:"items"`
 }
 
