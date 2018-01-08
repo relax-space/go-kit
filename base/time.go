@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	CHINAZONE = "Asia/Shanghai"
+	CHINAZONE = "Asia/Urumqi"
 	UTCZONE   = "UTC"
 	KOREAZONE = "Asia/Seoul"
 )
