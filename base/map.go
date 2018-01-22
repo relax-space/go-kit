@@ -176,3 +176,80 @@ func ParseMapObject(param, sep1, sep2 string) (result map[string]interface{}) {
 	}
 	return
 }
+
+func JoinMap(v map[string]interface{}, sep1, sep2 string) string {
+	if v == nil {
+		return ""
+	}
+	var buf bytes.Buffer
+	keys := make([]string, 0, len(v))
+	for k := range v {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	for _, k := range keys {
+		vs := v[k]
+		if vs == nil {
+			continue
+		}
+		if str, ok := vs.(string); ok {
+			if len(str) == 0 {
+				continue
+			}
+		}
+		if buf.Len() > 0 {
+			buf.WriteString(sep1) //'&'
+		}
+		buf.WriteString(k)
+		buf.WriteString(sep2) //'='
+		if tValue, ok := vs.(string); ok {
+			buf.WriteString(tValue)
+
+		} else if tValue, ok := vs.([]byte); ok {
+			buf.Write(tValue)
+		} else {
+			b, _ := json.Marshal(vs)
+			buf.Write(b)
+		}
+	}
+	return buf.String()
+}
+
+func JoinMapEncode(v map[string]interface{}, sep1, sep2 string) string {
+
+	if v == nil {
+		return ""
+	}
+	var buf bytes.Buffer
+	keys := make([]string, 0, len(v))
+	for k := range v {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	for _, k := range keys {
+		vs := v[k]
+		if vs == nil {
+			continue
+		}
+		if str, ok := vs.(string); ok {
+			if len(str) == 0 {
+				continue
+			}
+		}
+		if buf.Len() > 0 {
+			buf.WriteString(sep1) //'&'
+		}
+
+		buf.WriteString(url.QueryEscape(k))
+		buf.WriteString(sep2) //'='
+		if tValue, ok := vs.(string); ok {
+			buf.WriteString(url.QueryEscape(tValue))
+		} else if tValue, ok := vs.([]byte); ok {
+			buf.Write(tValue)
+		} else {
+			b, _ := json.Marshal(vs)
+			buf.Write(b)
+		}
+	}
+	return buf.String()
+}
