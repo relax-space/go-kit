@@ -6,6 +6,12 @@ import (
 	"testing"
 )
 
+func Test_GetMD5Base64(t *testing.T) {
+	s, err := GetMD5Base64("secret jwt")
+	fmt.Println(s)
+	test.Ok(t, err)
+}
+
 func Test_GetMD5Hash(t *testing.T) {
 	s, err := GetMD5Hash("secret jwt")
 
