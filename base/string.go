@@ -76,3 +76,23 @@ func Contains(list []string, value string) bool {
 	}
 	return false
 }
+
+/*
+rawString:	name=xiao.xinmiao&age=18&sign=3F7EC1885326B9D1FD078DB2276C84D6
+key:		sign
+after:		name=xiao.xinmiao&age=18
+*/
+func RemoveFromString(rawString, key string) (result string) {
+	if !strings.Contains(rawString, key) {
+		return
+	}
+	startIndex := strings.Index(rawString, key+"=")
+	tempParam := rawString[startIndex:]
+	secordIndex := strings.Index(tempParam, "&")
+	var secondPart string
+	if secordIndex != -1 {
+		secondPart = tempParam[secordIndex:]
+	}
+	result = rawString[:startIndex-1] + secondPart
+	return
+}
