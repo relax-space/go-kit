@@ -1,6 +1,7 @@
 package base
 
 import (
+	"encoding/json"
 	"fmt"
 	"testing"
 
@@ -82,4 +83,90 @@ func Test_11_JoinMapEncode(t *testing.T) {
 	fmt.Println(newParam)
 
 	test.Equals(t, "age18app_idwx1%22234namequery", newParam)
+}
+
+func Test_JoinMapJsonMessage(t *testing.T) {
+	body := `{
+		"CustomerCode": "jimu",
+		"Data": {
+			"ClosingDt": "20180320",
+			"BrandCode": "SF",
+			"DeliveryList": [
+				{
+					"TradeID": "T12",
+					"ConfirmTime": "2018-03-23T08:08:05Z",
+					"DeliveryType": "OS",
+					"PackingSKUs": [
+						{
+							"SkuID": "SAAC54NA0720FRE",
+							"Qty": "2"
+						}
+					],
+					"ShippingCompanyName": "申通",
+					"ShippingNo": "1209874532",
+					"TmallOrderID": "R123456789",
+					"TpPlantCode": ""
+				}
+			]
+		}
+	}`
+	param := make(map[string]*json.RawMessage, 0)
+	err := json.Unmarshal([]byte(body), &param)
+	test.Ok(t, err)
+	newParam := JoinMapJsonRawMessage(param)
+	fmt.Println(newParam)
+	test.Equals(t, `CustomerCode=jimu&Data={
+			"ClosingDt": "20180320",
+			"BrandCode": "SF",
+			"DeliveryList": [
+				{
+					"TradeID": "T12",
+					"ConfirmTime": "2018-03-23T08:08:05Z",
+					"DeliveryType": "OS",
+					"PackingSKUs": [
+						{
+							"SkuID": "SAAC54NA0720FRE",
+							"Qty": "2"
+						}
+					],
+					"ShippingCompanyName": "申通",
+					"ShippingNo": "1209874532",
+					"TmallOrderID": "R123456789",
+					"TpPlantCode": ""
+				}
+			]
+		}`, newParam)
+}
+
+func Test_JoinMapJsonMessageEncode(t *testing.T) {
+	body := `{
+		"CustomerCode": "jimu",
+		"Data": {
+			"ClosingDt": "20180320",
+			"BrandCode": "SF",
+			"DeliveryList": [
+				{
+					"TradeID": "T12",
+					"ConfirmTime": "2018-03-23T08:08:05Z",
+					"DeliveryType": "OS",
+					"PackingSKUs": [
+						{
+							"SkuID": "SAAC54NA0720FRE",
+							"Qty": "2"
+						}
+					],
+					"ShippingCompanyName": "申通",
+					"ShippingNo": "1209874532",
+					"TmallOrderID": "R123456789",
+					"TpPlantCode": ""
+				}
+			]
+		}
+	}`
+	param := make(map[string]*json.RawMessage, 0)
+	err := json.Unmarshal([]byte(body), &param)
+	test.Ok(t, err)
+	newParam := JoinMapJsonRawMessageEncode(param)
+	fmt.Println(newParam) //tools http://tool.oschina.net/encode?type=4
+	test.Equals(t, `CustomerCode=jimu%26Data=%7B%0A%09%09%09%22ClosingDt%22%3A%20%2220180320%22%2C%0A%09%09%09%22BrandCode%22%3A%20%22SF%22%2C%0A%09%09%09%22DeliveryList%22%3A%20%5B%0A%09%09%09%09%7B%0A%09%09%09%09%09%22TradeID%22%3A%20%22T12%22%2C%0A%09%09%09%09%09%22ConfirmTime%22%3A%20%222018-03-23T08%3A08%3A05Z%22%2C%0A%09%09%09%09%09%22DeliveryType%22%3A%20%22OS%22%2C%0A%09%09%09%09%09%22PackingSKUs%22%3A%20%5B%0A%09%09%09%09%09%09%7B%0A%09%09%09%09%09%09%09%22SkuID%22%3A%20%22SAAC54NA0720FRE%22%2C%0A%09%09%09%09%09%09%09%22Qty%22%3A%20%222%22%0A%09%09%09%09%09%09%7D%0A%09%09%09%09%09%5D%2C%0A%09%09%09%09%09%22ShippingCompanyName%22%3A%20%22%E7%94%B3%E9%80%9A%22%2C%0A%09%09%09%09%09%22ShippingNo%22%3A%20%221209874532%22%2C%0A%09%09%09%09%09%22TmallOrderID%22%3A%20%22R123456789%22%2C%0A%09%09%09%09%09%22TpPlantCode%22%3A%20%22%22%0A%09%09%09%09%7D%0A%09%09%09%5D%0A%09%09%7D`, newParam)
 }

@@ -253,3 +253,66 @@ func JoinMapEncode(v map[string]interface{}, sep1, sep2 string) string {
 	}
 	return buf.String()
 }
+
+func JoinMapJsonRawMessage(v map[string]*json.RawMessage) string {
+	if v == nil {
+		return ""
+	}
+	var buf bytes.Buffer
+	keys := make([]string, 0, len(v))
+	for k := range v {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	for _, k := range keys {
+		vs := v[k]
+		if vs == nil {
+			continue
+		}
+		vsTrim := strings.TrimPrefix(string(*vs), "\"")
+		vsTrim = strings.TrimSuffix(vsTrim, "\"")
+		values := string(vsTrim)
+		if len(values) == 0 {
+			continue
+		}
+		if buf.Len() > 0 {
+			buf.WriteByte('&')
+		}
+		buf.WriteString(k)
+		buf.WriteByte('=')
+		buf.WriteString(values)
+	}
+	return buf.String()
+}
+
+//to be: + <=> %20
+func JoinMapJsonRawMessageEncode(v map[string]*json.RawMessage) string {
+	if v == nil {
+		return ""
+	}
+	var buf bytes.Buffer
+	keys := make([]string, 0, len(v))
+	for k := range v {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	for _, k := range keys {
+		vs := v[k]
+		if vs == nil {
+			continue
+		}
+		vsTrim := strings.TrimPrefix(string(*vs), "\"")
+		vsTrim = strings.TrimSuffix(vsTrim, "\"")
+		values := string(vsTrim)
+		if len(values) == 0 {
+			continue
+		}
+		if buf.Len() > 0 {
+			buf.WriteByte('&')
+		}
+		buf.WriteString(url.QueryEscape(k))
+		buf.WriteByte('=')
+		buf.WriteString(url.QueryEscape(values))
+	}
+	return buf.String()
+}
