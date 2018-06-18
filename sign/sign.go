@@ -29,6 +29,14 @@ func GetMD5Hash(text string, isLowerCase ...bool) (string, error) {
 	return fmt.Sprintf("%X", hasher.Sum(nil)), nil
 }
 
+func GetMD5AndBase64(text string, isLowerCase ...bool) (string, error) {
+	md5, err := GetMD5Hash(text, isLowerCase...)
+	if err != nil {
+		return "", err
+	}
+	return base64.StdEncoding.EncodeToString([]byte(md5)), nil
+}
+
 func GetMD5Base64(text string) (string, error) {
 	hasher := md5.New()
 	if _, err := hasher.Write([]byte(text)); err != nil {

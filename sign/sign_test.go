@@ -2,14 +2,21 @@ package sign
 
 import (
 	"fmt"
-	"kit/test"
 	"testing"
+
+	"github.com/relax-space/go-kit/test"
 )
 
 func Test_GetMD5Base64(t *testing.T) {
 	s, err := GetMD5Base64("secret jwt")
 	fmt.Println(s)
 	test.Ok(t, err)
+}
+
+func Test_GetMD5AndBase64(t *testing.T) {
+	s, err := GetMD5AndBase64("{'OrderCode':'','ShipperCode':'SF','LogisticCode':'118954907573'}56da2cf8-c8a2-44b2-b6fa-476cd7d1ba17", true)
+	test.Ok(t, err)
+	test.Equals(t, "OWFhM2I5N2ViM2U2MGRkMjc4YzU2NmVlZWI3ZDk0MmE=", s)
 }
 
 func Test_GetMD5Hash(t *testing.T) {
