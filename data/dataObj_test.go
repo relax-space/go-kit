@@ -1,8 +1,9 @@
 package data
 
 import (
-	"kit/test"
 	"testing"
+
+	"github.com/relax-space/go-kit/test"
 )
 
 func Test_FromXml(t *testing.T) {
