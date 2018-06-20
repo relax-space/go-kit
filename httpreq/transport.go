@@ -28,7 +28,7 @@ func CertTransport(certFile string, keyFile string, caFile string) (transport *h
 	// Setup HTTPS client
 	tlsConfig := &tls.Config{
 		Certificates: []tls.Certificate{cert},
-		RootCAs:      caCertPool,
+		//RootCAs:      caCertPool,
 	}
 	tlsConfig.BuildNameToCertificate()
 	return &http.Transport{TLSClientConfig: tlsConfig}, nil
